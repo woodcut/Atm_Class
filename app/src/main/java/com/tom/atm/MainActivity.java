@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_LOGIN){
             if (resultCode == RESULT_OK){
-                Toast.makeText(this, "blablabla", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Success123", Toast.LENGTH_LONG).show();
             }else{
                 finish();
             }
