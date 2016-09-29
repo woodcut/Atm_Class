@@ -7,12 +7,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     private static final int REQUEST_LOGIN = 50;
     private static final String TAG = "MainActivity";
     boolean logon = false;
@@ -26,6 +27,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         func = getResources().getStringArray(R.array.functions);
 //        forListView();
+//        forSpinner();
+        GridView grid = (GridView) findViewById(R.id.grid);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this, R.array.functions, android.R.layout.simple_list_item_1);
+        grid.setAdapter(adapter);
+        grid.setOnItemClickListener(this);
+
+        if (!logon){
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivityForResult(intent, REQUEST_LOGIN);
+//            startActivity(new Intent(this, LoginActivity.class));
+        }
+
+    }
+
+    private void forSpinner() {
         spinner = (Spinner) findViewById(R.id.spinner);
 //        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 //                android.R.layout.simple_list_item_1,
@@ -47,13 +64,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-        if (!logon){
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivityForResult(intent, REQUEST_LOGIN);
-//            startActivity(new Intent(this, LoginActivity.class));
-        }
-
     }
 
     private void forListView() {
@@ -91,4 +101,22 @@ public class MainActivity extends AppCompatActivity {
         TextView tv = (TextView) findViewById(R.id.dataText);
         tv.setText(data);
     }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        switch (position){
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                finish();
+                break;
+        }
+    }
+
 }

@@ -24,7 +24,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/spinner" />
+        android:id="@+id/spinner"
+        android:visibility="gone" />
 
     <Button
         android:text="Button"
@@ -35,7 +36,8 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="30dp"
         android:id="@+id/button7"
-        android:onClick="getData" />
+        android:onClick="getData"
+        android:visibility="gone" />
 
     <TextView
         android:text="TextView"
@@ -47,5 +49,15 @@
         android:layout_marginLeft="28dp"
         android:layout_marginStart="28dp"
         android:layout_marginBottom="13dp"
-        android:id="@+id/dataText" />
+        android:id="@+id/dataText"
+        android:visibility="gone" />
+
+    <GridView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/grid"
+        android:numColumns="3" />
 </RelativeLayout>
