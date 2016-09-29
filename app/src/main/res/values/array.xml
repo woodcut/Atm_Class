@@ -7,5 +7,10 @@
         <item>投資理財</item>
         <item>離開</item>
     </array>
-
+    <array name="notify">
+        <item>永不</item>
+        <item>AA</item>
+        <item>BB</item>
+        <item>CC</item>
+    </array>
 </resources>
