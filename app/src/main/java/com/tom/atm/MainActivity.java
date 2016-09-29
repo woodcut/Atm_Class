@@ -17,6 +17,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private static final int REQUEST_LOGIN = 50;
     private static final String TAG = "MainActivity";
     boolean logon = false;
+    int[] icons = {R.drawable.ic_domain_black_36dp,
+                R.drawable.ic_mood_bad_black_36dp,
+                R.drawable.ic_notifications_active_black_36dp,
+                R.drawable.ic_pages_black_36dp,
+                R.drawable.ic_poll_black_36dp};
 //    String[] func = {"AAA", "BBB", "CCC", "DDD", "EEE"};
     String[] func;
     private Spinner spinner;
