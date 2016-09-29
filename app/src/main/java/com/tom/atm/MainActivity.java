@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,22 +18,35 @@ public class MainActivity extends AppCompatActivity {
     boolean logon = false;
 //    String[] func = {"AAA", "BBB", "CCC", "DDD", "EEE"};
     String[] func;
+    private Spinner spinner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         func = getResources().getStringArray(R.array.functions);
 //        forListView();
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        spinner = (Spinner) findViewById(R.id.spinner);
 //        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 //                android.R.layout.simple_list_item_1,
 //                getResources().getStringArray(R.array.notify));
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this, R.array.notify, android.R.layout.simple_list_item_1);
 //        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         //被選擇的當下
-//        spinner.setOnIt
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, position+"");
+                Log.d(TAG, (String) adapter.getItem(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         if (!logon){
             Intent intent = new Intent(this, LoginActivity.class);
@@ -70,5 +84,11 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         }
+    }
+
+    public void getData(View v){
+        String data = spinner.getSelectedItem().toString();
+        TextView tv = (TextView) findViewById(R.id.dataText);
+        tv.setText(data);
     }
 }
