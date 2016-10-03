@@ -5,9 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -17,11 +20,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private static final int REQUEST_LOGIN = 50;
     private static final String TAG = "MainActivity";
     boolean logon = false;
-    int[] icons = {R.drawable.ic_domain_black_36dp,
-                R.drawable.ic_mood_bad_black_36dp,
-                R.drawable.ic_notifications_active_black_36dp,
-                R.drawable.ic_pages_black_36dp,
-                R.drawable.ic_poll_black_36dp};
+    int[] icons = {R.drawable.func_balance,
+                R.drawable.func_history,
+                R.drawable.func_news,
+                R.drawable.func_finance,
+                R.drawable.func_exit};
 //    String[] func = {"AAA", "BBB", "CCC", "DDD", "EEE"};
     String[] func;
     private Spinner spinner;
@@ -34,8 +37,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //        forListView();
 //        forSpinner();
         GridView grid = (GridView) findViewById(R.id.grid);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                this, R.array.functions, android.R.layout.simple_list_item_1);
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+//                this, R.array.functions, android.R.layout.simple_list_item_1);
+        IconAdapter adapter = new IconAdapter();
         grid.setAdapter(adapter);
         grid.setOnItemClickListener(this);
 
@@ -109,19 +113,49 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        switch (position){
-            case 0:
+        switch ((int) id){
+            case R.drawable.func_balance:
                 break;
-            case 1:
+            case R.drawable.func_history:
                 break;
-            case 2:
+            case R.drawable.func_finance:
                 break;
-            case 3:
+            case R.drawable.func_news:
                 break;
-            case 4:
+            case R.drawable.func_exit:
                 finish();
                 break;
         }
     }
+    class IconAdapter extends BaseAdapter{
 
+        @Override
+        public int getCount() {
+            return icons.length;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return func[position];
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return icons[position];
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null){
+                View view =
+                        getLayoutInflater().inflate(R.layout.func_item, null);
+                TextView tv = (TextView) view.findViewById(R.id.title);
+                ImageView iv = (ImageView) view.findViewById(R.id.icon);
+                tv.setText(func[position]);
+                iv.setImageResource(icons[position]);
+                convertView = view;
+            }
+            return convertView;
+        }
+    }
 }
