@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.EditText;
 
 public class AddActivity extends AppCompatActivity {
-
     private EditText edDate;
     private EditText edInfo;
     private EditText edAmount;
