@@ -59,5 +59,14 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/grid"
-        android:numColumns="3" />
+        android:numColumns="3"
+        android:visibility="gone" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/list2" />
 </RelativeLayout>

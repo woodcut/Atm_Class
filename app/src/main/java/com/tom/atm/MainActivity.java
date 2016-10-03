@@ -36,12 +36,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         func = getResources().getStringArray(R.array.functions);
 //        forListView();
 //        forSpinner();
-        GridView grid = (GridView) findViewById(R.id.grid);
+//        GridView grid = (GridView) findViewById(R.id.grid);
+        ListView list = (ListView) findViewById(R.id.list2);
+
 //        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
 //                this, R.array.functions, android.R.layout.simple_list_item_1);
-        IconAdapter adapter = new IconAdapter();
-        grid.setAdapter(adapter);
-        grid.setOnItemClickListener(this);
+        IconAdapter adapter = new IconAdapter(R.layout.func_item_horiz);
+        list.setAdapter(adapter);
+        list.setOnItemClickListener(this);
+//        grid.setAdapter(adapter);
+//        grid.setOnItemClickListener(this);
 
         if (!logon){
             Intent intent = new Intent(this, LoginActivity.class);
@@ -119,6 +123,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             case R.drawable.func_history:
                 break;
             case R.drawable.func_finance:
+                startActivity(new Intent(this, FinanceActivity.class));
                 break;
             case R.drawable.func_news:
                 break;
@@ -128,7 +133,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
     }
     class IconAdapter extends BaseAdapter{
+        int layout;
 
+        public IconAdapter(int layoutRes){
+            this.layout = layoutRes;
+        }
         @Override
         public int getCount() {
             return icons.length;
@@ -148,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null){
                 View view =
-                        getLayoutInflater().inflate(R.layout.func_item, null);
+                        getLayoutInflater().inflate(layout, null);
                 TextView tv = (TextView) view.findViewById(R.id.title);
                 ImageView iv = (ImageView) view.findViewById(R.id.icon);
                 tv.setText(func[position]);
