@@ -9,11 +9,17 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 
 public class MyDBHelper extends SQLiteOpenHelper{
+    private static MyDBHelper instance;
 
-    public MyDBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    private MyDBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
-
+    public static MyDBHelper getInstance(Context ctx){
+        if (instance == null){
+            instance = new MyDBHelper(ctx, "expense.db", null, 1);
+        }
+        return instance;
+    }
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE main.exp (" +

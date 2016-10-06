@@ -32,7 +32,7 @@ public class FinanceActivity extends AppCompatActivity {
             }
         });
         ListView list = (ListView) findViewById(R.id.list);
-        dbHelper = new MyDBHelper(this, "expense.db", null, 1);
+        dbHelper = MyDBHelper.getInstance(this);
         Cursor c = dbHelper.getReadableDatabase()
                 .query("exp", null, null, null, null, null, null);
         String[] from = {"_id", "info", "amount", "cdate"};
@@ -43,10 +43,7 @@ public class FinanceActivity extends AppCompatActivity {
                 R.layout.finance_row,
                 c, from, to, 0);
         list.setAdapter(adapter);
-
-
 //                .rawQuery("select * from users where userid=?", new String[]{"tom"});
-
     }
 
 }
