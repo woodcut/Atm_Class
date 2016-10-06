@@ -35,10 +35,12 @@ public class FinanceActivity extends AppCompatActivity {
         dbHelper = new MyDBHelper(this, "expense.db", null, 1);
         Cursor c = dbHelper.getReadableDatabase()
                 .query("exp", null, null, null, null, null, null);
-        String[] from = {"info", "amount"};
-        int[] to = {android.R.id.text1, android.R.id.text2};
+        String[] from = {"_id", "info", "amount", "cdate"};
+//        int[] to = {android.R.id.text1, android.R.id.text2};
+        int[] to = {R.id.item_id, R.id.item_info, R.id.item_amount, R.id.item_cdate};
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
-                android.R.layout.simple_list_item_2,
+//                android.R.layout.simple_list_item_2,
+                R.layout.finance_row,
                 c, from, to, 0);
         list.setAdapter(adapter);
 
