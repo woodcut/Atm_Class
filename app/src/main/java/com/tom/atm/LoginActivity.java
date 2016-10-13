@@ -10,6 +10,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
@@ -56,7 +61,19 @@ public class LoginActivity extends AppCompatActivity {
     public void login(View v){
         String userid = edUserid.getText().toString();
         String passwd = edPasswd.getText().toString();
-        if (userid.equals("jack") && passwd.equals("1234")){
+        try {
+            URL url = new URL("http://atm201605.appspot.com/login?uid="+
+                    userid+"&pw="+passwd);
+            InputStream in = url.openStream();
+            int data = in.read();
+            Log.d(TAG, "data:"+data);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        /*if (userid.equals("jack") && passwd.equals("1234")){
             SharedPreferences pref = getSharedPreferences("atm", MODE_PRIVATE);
             pref.edit()
                     .putString("PREF_USERID", userid)
@@ -65,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
             setResult(RESULT_OK);
             finish();
         }else{
-        }
+        }*/
     }
     public void cancel(View v){
 
