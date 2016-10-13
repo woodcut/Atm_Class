@@ -1,5 +1,6 @@
 package com.tom.atm;
 
+import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private EditText edUserid;
     private EditText edPasswd;
+    private String userid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +62,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login(View v){
-        String userid = edUserid.getText().toString();
+        userid = edUserid.getText().toString();
         String passwd = edPasswd.getText().toString();
         String loginUrl = "http://atm201605.appspot.com/login?uid="+
-                userid+"&pw="+passwd;
+                userid +"&pw="+passwd;
         new LoginTask().execute(loginUrl);
         /*if (userid.equals("jack") && passwd.equals("1234")){
             SharedPreferences pref = getSharedPreferences("atm", MODE_PRIVATE);
@@ -101,9 +103,18 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Integer data) {
             if (data == 49){
-
+                SharedPreferences pref = getSharedPreferences("atm", MODE_PRIVATE);
+                pref.edit()
+                        .putString("PREF_USERID", userid)
+                        .commit();
+                Toast.makeText(LoginActivity.this, "登入成功", Toast.LENGTH_LONG).show();
+                setResult(RESULT_OK);
+                finish();
             }else{
-
+                new AlertDialog.Builder(LoginActivity.this)
+                        .setMessage("登入失敗")
+                        .setPositiveButton("OK", null)
+                        .show();
             }
         }
     }
