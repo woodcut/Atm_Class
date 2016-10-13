@@ -1,6 +1,7 @@
 package com.tom.atm;
 
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -61,18 +62,9 @@ public class LoginActivity extends AppCompatActivity {
     public void login(View v){
         String userid = edUserid.getText().toString();
         String passwd = edPasswd.getText().toString();
-        try {
-            URL url = new URL("http://atm201605.appspot.com/login?uid="+
-                    userid+"&pw="+passwd);
-            InputStream in = url.openStream();
-            int data = in.read();
-            Log.d(TAG, "data:"+data);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        String loginUrl = "http://atm201605.appspot.com/login?uid="+
+                userid+"&pw="+passwd;
+        new LoginTask().execute(loginUrl);
         /*if (userid.equals("jack") && passwd.equals("1234")){
             SharedPreferences pref = getSharedPreferences("atm", MODE_PRIVATE);
             pref.edit()
@@ -86,5 +78,33 @@ public class LoginActivity extends AppCompatActivity {
     }
     public void cancel(View v){
 
+    }
+
+    class LoginTask extends AsyncTask<String, Void, Integer>{
+
+        @Override
+        protected Integer doInBackground(String... params) {
+            int data = 0;
+            try {
+                URL url = new URL(params[0]);
+                InputStream in = url.openStream();
+                data = in.read();
+                Log.d(TAG, "data:"+data);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return data;
+        }
+
+        @Override
+        protected void onPostExecute(Integer data) {
+            if (data == 49){
+
+            }else{
+
+            }
+        }
     }
 }
