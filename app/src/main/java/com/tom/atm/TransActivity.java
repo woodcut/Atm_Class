@@ -5,6 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -82,6 +86,18 @@ public class TransActivity extends AppCompatActivity {
     }
 
     private void parseJSON(String s) {
+        try {
+            JSONArray array = new JSONArray(s);
+            for (int i=0; i<array.length(); i++){
+                JSONObject obj = array.getJSONObject(i);
+                String date = obj.getString("date");
+                int amount = obj.getInt("amount");
+                int type = obj.getInt("type");
+                Log.d(TAG, "OBJ:"+date+"/"+amount+"/"+type);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
 }
