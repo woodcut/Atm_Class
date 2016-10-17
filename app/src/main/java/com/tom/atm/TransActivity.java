@@ -12,18 +12,42 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 import static android.R.attr.data;
 
 public class TransActivity extends AppCompatActivity {
 
     private static final String TAG = "TransActivity";
-
+    OkHttpClient client = new OkHttpClient();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trans);
         //http://atm201605.appspot.com/h
-        new TransTask().execute("http://atm201605.appspot.com/h");
+//        new TransTask().execute("http://atm201605.appspot.com/h");
+        //OkHttp
+        Request request = new Request.Builder()
+                .url("http://atm201605.appspot.com/h")
+                .build();
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String json = response.body().string();
+                Log.d(TAG, "JSON:"+json);
+                parseJSON(json);
+            }
+        });
     }
 
     class TransTask extends AsyncTask<String, Void, String>{
@@ -49,5 +73,15 @@ public class TransActivity extends AppCompatActivity {
             }
             return sb.toString();
         }
+
+        @Override
+        protected void onPostExecute(String s) {
+            Log.d(TAG, "JSON:"+s);
+            parseJSON(s);
+        }
+    }
+
+    private void parseJSON(String s) {
+
     }
 }
